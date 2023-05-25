@@ -1,0 +1,20 @@
+---
+
+name: Code style
+
+"on":
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  ansible-lint:
+    name: Ansible Lint
+    runs-on: ubuntu-latest
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v3
+
+      - name: Run ansible-lint
+        uses: ansible/ansible-lint@v6
