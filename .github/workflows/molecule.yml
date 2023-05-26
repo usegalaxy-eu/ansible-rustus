@@ -1,0 +1,32 @@
+---
+name: Ansible Molecule
+
+"on":
+  pull_request:
+  push:
+    branches:
+      - main
+
+jobs:
+  molecule:
+    name: Tests
+    runs-on: ubuntu-latest
+    strategy:
+      fail-fast: false
+      matrix:
+        scenario:
+          - default
+          - latest
+          - systemd
+    steps:
+      - name: Check out the codebase.
+        uses: actions/checkout@v3
+
+      - name: Run Ansible Molecule.
+        uses: gofrolist/molecule-action@v2
+        with:
+          molecule_options: --base-config molecule/base.yml
+          molecule_command: test
+          molecule_args: --scenario-name ${{ matrix.scenario }}
+        env:
+          ANSIBLE_FORCE_COLOR: '1'
