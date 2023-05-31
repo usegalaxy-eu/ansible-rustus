@@ -94,7 +94,8 @@
     - name: Extract rustus.
       ansible.builtin.unarchive:
         remote_src: true
-        src: "https://github.com/s3rius/rustus/releases/download/{{ rustus_version }}/rustus-{{ rustus_version }}-{{ rustus_os }}-{{ rustus_arch }}.tar.gz"
+        src: "https://github.com/s3rius/rustus/releases/download/\
+          {{ rustus_version }}/rustus-{{ rustus_version }}-{{ rustus_os }}-{{ rustus_arch }}.tar.gz"
         dest: "{{ __rustus_install_tempdir.path }}/"
       changed_when: false
 
