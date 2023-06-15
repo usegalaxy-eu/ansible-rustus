@@ -27,6 +27,10 @@ None.
         user: myuser
         # group that rustus will run as
         group: mygroup
+        # rustus will refuse to work if it cannot write to its current working directory,
+        # just provide a directory that rustus has write access to (for example the same
+        # directory where files will be uploaded)
+        working_directory: /data/uploads
         # arguments passed to rustus
         args:
           # see https://s3rius.github.io/rustus/configuration/
