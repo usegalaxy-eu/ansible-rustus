@@ -1,16 +1,14 @@
 ---
 rustus_version: 0.7.2
 
-# The systemd User= directive prevents users other than root from writing to the uploads folder,
-# although strangely, when non-root users launch rustus without systemd everything works. Needs
-# further investigation.
-rustus_owner: root
-rustus_group: root
+rustus_owner: rustus
+rustus_group: rustus
 
 rustus_instances:
   - name: uploads
     user: "{{ rustus_owner }}"
     group: "{{ rustus_group }}"
+    working_directory: "{{ uploads_dir }}"
     args:
       - --host "127.0.0.1"
       - --port 10081

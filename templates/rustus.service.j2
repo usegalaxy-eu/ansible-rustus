@@ -11,6 +11,7 @@ UMask=022
 Type=simple
 User={{ item.user }}
 Group={{ item.group }}
+WorkingDirectory={{ item.working_directory }}
 TimeoutStartSec=10
 ExecStart={{ rustus_path }} {{ item.args | join(' ') }}
 Restart=always
