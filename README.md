@@ -27,9 +27,12 @@ None.
         user: myuser
         # group that rustus will run as
         group: mygroup
-        # rustus will refuse to work if it cannot write to its current working directory,
-        # just provide a directory that rustus has write access to (for example the same
-        # directory where files will be uploaded)
+        # By default, rustus stores the information about file uploads using the file info
+        # storage. The directory where .info files are stored can be controlled using the
+        # --info-dir argument, although it defaults to "./data". This means that by default,
+        # rustus will refuse to run if it cannot write to its current working directory.
+        # Therefore, this role forces you to provide a working directory so that rustus can
+        # work even when the --info-dir argument is not provided.
         working_directory: /data/uploads
         # arguments passed to rustus
         args:
