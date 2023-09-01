@@ -47,7 +47,7 @@
                   --data-binary 'Hello\n'
               changed_when: true
 
-        - name: Verify that the file was uploaded succesfully.
+        - name: Verify that the file was uploaded successfully.
           block:
             - name: Check that the file exists
               ansible.builtin.stat:

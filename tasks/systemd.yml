@@ -1,6 +1,6 @@
 ---
 
-# Using the systemd instance functionality doesn't work here beacuse the user/group cannot be an env var, but should not
+# Using the systemd instance functionality doesn't work here because the user/group cannot be an env var, but should not
 # necessarily be the same for all instances, so we resort to creating individual service units for each instance.
 - name: Install rustus service units
   ansible.builtin.template:
