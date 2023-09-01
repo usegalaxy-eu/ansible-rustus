@@ -77,3 +77,26 @@
             ls -lah {{ uploads_dir }} | wc -l
           register: __count_clean
           changed_when: __count.stdout != __count_clean.stdout
+
+    - name: Verify that the permissions of the already existing working directory remained unchanged.
+      block:
+        - name: Gather information about the working directory.
+          ansible.builtin.stat:
+            path: "{{ existing_dir }}"
+          register: __stat_existing_dir
+
+        - name: Retrieve user details.
+          ansible.builtin.getent:
+            database: passwd
+
+        - name: Verify that the owner remained unchanged.
+          ansible.builtin.assert:
+            that: __stat_existing_dir.stat.uid == {{ getent_passwd[rustus_owner].1 }}
+
+        - name: Verify that the group remained unchanged.
+          ansible.builtin.assert:
+            that: __stat_existing_dir.stat.gid == {{ getent_passwd['root'].2 }}
+
+        - name: Verify that the mode remained unchanged.
+          ansible.builtin.assert:
+            that: __stat_existing_dir.stat.mode == existing_dir_mode
