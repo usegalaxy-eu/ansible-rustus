@@ -32,7 +32,8 @@ None.
         # --info-dir argument, although it defaults to "./data". This means that by default,
         # rustus will refuse to run if it cannot write to its current working directory.
         # Therefore, this role forces you to provide a working directory so that rustus can
-        # work even when the --info-dir argument is not provided.
+        # work even when the --info-dir argument is not provided. This working directory
+        # will be automatically created if it does not exist. 
         working_directory: /data/uploads
         # arguments passed to rustus
         args:
