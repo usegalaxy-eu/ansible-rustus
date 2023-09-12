@@ -15,7 +15,7 @@
         state: directory
         owner: "{{ item.instance.user if not item.stat.exists else omit }}"
         group: "{{ item.instance.group if not item.stat.exists else omit }}"
-        mode: "{{ existing_dir_mode if not item.stat.exists else omit }}"
+        mode: "{{ '0770' if not item.stat.exists else omit }}"
       loop: "{{ __stat_working_directory.results }}"
 
 # Using the systemd instance functionality doesn't work here because the user/group cannot be an env var, but should not
