@@ -43,6 +43,7 @@
       block:
         - name: Launch rustus.
           ansible.builtin.shell:
+            executable: /bin/bash
             chdir: /root
             cmd: nohup {{ rustus_path }} >/dev/null 2>&1 & echo $!
           register: __launch
@@ -74,15 +75,17 @@
               # curl is used instead of ansible.builtin.uri because the module's body is behaving
               # differently from --data-binary. In fact, if the option -d is used with curl
               # instead of --data-binary, curl hangs just as ansible's uri module.
-              ansible.builtin.shell: |
-                curl -v -X PATCH \
-                  -H "Tus-Resumable: 1.0.0" \
-                  -H "Host: 127.0.0.1:1081" \
-                  -H "Content-Length: 7" \
-                  -H "Content-Type: application/offset+octet-stream" \
-                  -H "Upload-Offset: 0" \
-                  {{ __create.location }} \
-                  --data-binary 'Hello\n'
+              ansible.builtin.shell:
+                executable: /bin/bash
+                cmd: |
+                  curl -v -X PATCH \
+                    -H "Tus-Resumable: 1.0.0" \
+                    -H "Host: 127.0.0.1:1081" \
+                    -H "Content-Length: 7" \
+                    -H "Content-Type: application/offset+octet-stream" \
+                    -H "Upload-Offset: 0" \
+                    {{ __create.location }} \
+                    --data-binary 'Hello\n'
               changed_when: true
 
         - name: Verify that the file was uploaded succesfully.
