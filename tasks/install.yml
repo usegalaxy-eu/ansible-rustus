@@ -20,7 +20,9 @@
         __rustus_install: false
 
     - name: Determine whether a rustus binary is already installed
-      ansible.builtin.shell: type -p rustus || echo none
+      ansible.builtin.shell:
+        executable: /bin/bash
+        cmd: type -p rustus || echo none
       register: __rustus_installed
       changed_when: false
 
@@ -63,9 +65,11 @@
               changed_when: false
 
             - name: Read sha256sum.
-              ansible.builtin.shell: |
-                set -o pipefail
-                < {{ __rustus_tempfile_sha256.path }} tr -s ' ' | cut -d ' ' -f 1
+              ansible.builtin.shell:
+                executable: /bin/bash
+                cmd: |
+                  set -o pipefail
+                  < {{ __rustus_tempfile_sha256.path }} tr -s ' ' | cut -d ' ' -f 1
               register: __rustus_sha256sum_desired
               changed_when: false
 
