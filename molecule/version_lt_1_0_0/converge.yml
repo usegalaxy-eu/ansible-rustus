@@ -1,0 +1,12 @@
+---
+# The "version_lt_1_0_0" scenario installs a release of rustus earlier than
+# 1.0.0 (because the release format changed for 1.0.0)
+- name: Converge
+  hosts: all
+  vars:
+    rustus_version: "0.7.2"
+  tasks:
+    # Add tasks here to test whatever you find necessary.
+    - name: "Include usegalaxy_eu.rustus"
+      ansible.builtin.include_role:
+        name: "usegalaxy_eu.rustus"

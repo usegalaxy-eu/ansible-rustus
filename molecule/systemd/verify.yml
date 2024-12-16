@@ -95,13 +95,18 @@
           ansible.builtin.getent:
             database: passwd
 
+        - name: Retrieve expected owner and group from `getent_passwd`.
+          ansible.builtin.set_fact:
+            expected_owner: "{{ getent_passwd[rustus_owner].1 }}"
+            expected_group: "{{ getent_passwd['root'].2 }}"
+
         - name: Verify that the owner remained unchanged.
           ansible.builtin.assert:
-            that: __stat_existing_dir.stat.uid == {{ getent_passwd[rustus_owner].1 }}
+            that: (__stat_existing_dir.stat.uid | string) == expected_owner
 
         - name: Verify that the group remained unchanged.
           ansible.builtin.assert:
-            that: __stat_existing_dir.stat.gid == {{ getent_passwd['root'].2 }}
+            that: (__stat_existing_dir.stat.gid | string) == expected_group
 
         - name: Verify that the mode remained unchanged.
           ansible.builtin.assert:
