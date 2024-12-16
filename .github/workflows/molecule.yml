@@ -16,6 +16,7 @@ jobs:
       matrix:
         scenario:
           - default
+          - version_lt_1_0_0
           - latest
           - systemd
     steps:
