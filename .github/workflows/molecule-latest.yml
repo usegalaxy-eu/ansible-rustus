@@ -17,7 +17,8 @@ jobs:
     steps:
       - name: Install Ansible Molecule.
         run: |
-          pip3 install --user molecule molecule-plugins[podman] ansible-core
+          pip3 install --user molecule molecule-plugins[podman] ansible-core~=2.18.7
+          # `ansible-core~=2.18.7` is a workaround for https://github.com/ansible-community/molecule-plugins/issues/311
 
       - name: Check out the codebase.
         uses: actions/checkout@v3
